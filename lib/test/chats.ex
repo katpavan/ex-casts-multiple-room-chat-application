@@ -21,6 +21,23 @@ defmodule Test.Chats do
     Repo.all(Message)
   end
 
+
+  @doc """
+  takes a room and returns list of messages for that room
+
+  ## Examples
+
+      iex> list_messages()
+      [%Message{}, ...]
+  """
+  def list_messages_by_room(room) do
+    #  order them ascending by when they were created
+    qry = from m in Message,
+      where: m.room == ^room,
+      order_by: [asc: m.inserted_at]
+    Repo.all(qry)
+  end
+
   @doc """
   Gets a single message.
 
